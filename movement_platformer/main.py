@@ -2,7 +2,7 @@ import pygame
 import sys
 
 from settings import *
-
+# hello from Cooper
 def main():
     pygame.init()
 
