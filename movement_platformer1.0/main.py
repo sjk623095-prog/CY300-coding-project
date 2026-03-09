@@ -1,7 +1,5 @@
 from core.game import Game
 
-from
-
 def main():
     game = Game()
     game.run()
