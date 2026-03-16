@@ -1,25 +1,31 @@
 import pygame
 from settings import *
+from core.player import Player
+from world.roomex import Room
+from physics.collision_handler import resolve_platform_collisions
 
 class Game:
+
     def __init__(self):
         pygame.init()
+
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         pygame.display.set_caption("Scifi Space Platformer")
 
         self.clock = pygame.time.Clock()
         self.running = True
 
-        self.current_room = None
-        self.player = None
-        self.camera = None
+        # create objects
+        self.player = Player(200, 200)
+        self.room = Room()
 
     def run(self):
         while self.running:
             dt = self.clock.tick(FPS) / 1000
+
             self.handle_events()
             self.update(dt)
-            self.render()
+            self.draw()
 
         pygame.quit()
 
@@ -29,12 +35,18 @@ class Game:
                 self.running = False
 
     def update(self, dt):
-        if self.current_room:
-            self.current_room.update(dt)
+        self.player.update(dt)
+        
+        resolve_platform_collisions(self.player, self.room.platforms)
 
-    def render(self):
+        self.room.update(dt)
+
+    def draw(self):
         self.screen.fill((30,30,40))
-        if self.current_room:
-            self.current_room.draw(self.screen)
+
+        self.room.draw(self.screen)
+        self.player.draw(self.screen)
 
         pygame.display.flip()
+
+
