@@ -6,6 +6,7 @@ from world.roomex import Room
 from physics.physics_engine import physics_engine_1
 from physics.collision_handler import resolve_collisions_x
 from physics.collision_handler import resolve_collisions_y
+from world.level_manager import LevelManager
 class Game:
 
     def __init__(self):
